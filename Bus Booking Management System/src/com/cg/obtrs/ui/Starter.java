@@ -125,14 +125,18 @@ public class Starter {
 						  {
 						try {
 							System.out.println(custService.searchBus(sourceStation, destinationStation));
-							System.out.println("1.Enter BusId to continue....");
+							System.out.println("1.To continue with the booking....");
 							System.out.println("2.Change Source ---> Destination");
 							int busIdChoice = input.nextInt();
 							switch(busIdChoice)
 							{
 							case 2:  searchFlag = false;
 							           break;
-							case 1:	int busId = input.nextInt();
+							case 1:  boolean busFarePageFlag = true;
+								System.out.println("Please enter BusId");	
+								int busId = input.nextInt();
+								while(busFarePageFlag)
+								{
 							System.out.println("1.Display Fare");
 							System.out.println("2.Check Seat Availability");
 							System.out.println("3.Go back to choose Bus");
@@ -144,15 +148,20 @@ public class Starter {
 								System.out.println("Discount Fare for selected Bus=" + "Rs."
 										+ bookingService.displayFare(passengerAge, busId));
 								searchFlag=false;
+								sourceToDestinationFlag=false;
 								break;
-							case 2:
+							case 2: boolean bookSeatFlag=true;
 								System.out.println(
 										"Number of seats available =" + custService.checkSeatAvailability(busId));
+								while(bookSeatFlag)
+								{
 								System.out.println("1. Book a Seat");
+								System.out.println("2. Go back");
 								searchFlag=false;
 								int bookingChoice = input.nextInt();
 								switch (bookingChoice) {
 								case 1:
+									 bookSeatFlag= false;
 									System.out.println("Enter Number of seats to book");
 									int noOfBookingSeats = input.nextInt();
 									float totalFare=0;
@@ -188,10 +197,16 @@ public class Starter {
 									   System.out.println(bookingService.cancelBooking(bookingId, busId));  
 									 System.out.println("Amount successfully refunded="+"Rs."+bookingService.refundMoney(bookingId));
 									}
-								case 3: searchFlag=true;	
-								}
+								case 2: busFarePageFlag = true;
+								        bookSeatFlag= false;
+								       break;
+								
+								}	        
+								}	
+							case 3:  busFarePageFlag = false;
+						    searchFlag=true;
 							}
-						}} catch (CustomException e) {
+						}}} catch (CustomException e) {
 							System.out.println(e);
 						}
 					}}}}}
