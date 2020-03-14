@@ -8,7 +8,7 @@ import com.cg.obtrs.dao.AdminDaoImpl;
 import com.cg.obtrs.dto.AdminDTO;
 import com.cg.obtrs.dto.BookingDTO;
 import com.cg.obtrs.exception.CustomException;
-
+//
 public class AdminServiceImpl implements AdminService{
 
 	AdminDAO adminDao= new AdminDaoImpl();
